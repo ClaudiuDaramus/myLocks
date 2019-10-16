@@ -16,6 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".SearchLock"/>
+        <activity android:name=".LockSettings"/>
 
         <service android:name=".BluetoothService"/>
 
