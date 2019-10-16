@@ -1,5 +1,5 @@
 <bitmap
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:src="@drawable/BKG_gray"
+    android:src="@drawable/bkg_gray"
     android:tileMode="repeat"
     android:dither="true" />
