@@ -60,7 +60,7 @@
             android:layout_marginBottom="-8dp"
             android:layout_toEndOf="@+id/textView3"
             android:layout_toRightOf="@+id/textView3"
-            app:srcCompat="@drawable/no_bluetooth_S" />
+            app:srcCompat="@drawable/no_bluetooth_s" />
 
         <Button
             android:id="@+id/button5"
@@ -71,12 +71,26 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginStart="161dp"
-            android:layout_marginLeft="161dp"
-            android:layout_marginTop="54dp"
-            android:layout_marginEnd="162dp"
-            android:layout_marginRight="162dp"
-            android:drawableBottom="@drawable/icon_3_S" />
+            android:layout_marginStart="159dp"
+            android:layout_marginLeft="159dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="164dp"
+            android:layout_marginRight="164dp"
+            android:drawableBottom="@drawable/icon_3_s" />
+
+        <Button
+            android:id="@+id/button8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button7"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="18dp"
+            android:background="@android:color/holo_red_dark"
+            android:onClick="onClick"
+            android:text="delete" />
 
         <Switch
             android:id="@+id/switch1"
@@ -87,7 +101,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginStart="23dp"
             android:layout_marginLeft="23dp"
-            android:layout_marginTop="38dp"
+            android:layout_marginTop="25dp"
             android:text="Auto-unlock" />
 
         <Button
@@ -100,7 +114,8 @@
             android:layout_marginStart="29dp"
             android:layout_marginLeft="29dp"
             android:layout_marginTop="16dp"
-            android:text="Change PIN" />
+            android:onClick="onClick"
+            android:text="change pin" />
 
         <Button
             android:id="@+id/button7"
@@ -109,23 +124,11 @@
             android:layout_below="@+id/button6"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
-            android:layout_marginStart="27dp"
-            android:layout_marginLeft="27dp"
-            android:layout_marginTop="15dp"
-            android:text="Change name" />
-
-        <Button
-            android:id="@+id/button8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/button7"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="29dp"
-            android:background="@android:color/holo_red_dark"
-            android:text="delete" />
+            android:layout_marginStart="29dp"
+            android:layout_marginLeft="29dp"
+            android:layout_marginTop="17dp"
+            android:onClick="onClick"
+            android:text="change name" />
     </RelativeLayout>
 
     <Button
@@ -135,7 +138,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginBottom="16dp"
-        android:text="Back"
+        android:onClick="onClick"
+        android:text="back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
