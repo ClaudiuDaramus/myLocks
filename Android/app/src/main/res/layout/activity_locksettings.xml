@@ -12,6 +12,7 @@
         android:layout_height="fill_parent"
         android:background="@drawable/back2_repeat"
         android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -24,12 +25,12 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginStart="150dp"
-            android:layout_marginLeft="150dp"
-            android:layout_marginTop="28dp"
-            android:layout_marginEnd="91dp"
-            android:layout_marginRight="91dp"
-            android:text="Nume_yala"
+            android:layout_marginStart="119dp"
+            android:layout_marginLeft="119dp"
+            android:layout_marginTop="27dp"
+            android:layout_marginEnd="121dp"
+            android:layout_marginRight="121dp"
+            android:text="@string/locker_name"
             android:textSize="30sp" />
 
         <TextView
@@ -39,10 +40,12 @@
             android:layout_below="@+id/textView2"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
-            android:layout_marginStart="19dp"
-            android:layout_marginLeft="19dp"
-            android:layout_marginTop="13dp"
-            android:text="status" />
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="17dp"
+            android:text="status"
+            android:textColor="@android:color/background_dark"
+            android:textSize="20sp" />
 
         <ImageView
             android:id="@+id/imageView2"
@@ -64,19 +67,20 @@
 
         <Button
             android:id="@+id/button5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="72dp"
+            android:layout_height="105dp"
             android:layout_below="@+id/textView3"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginStart="159dp"
-            android:layout_marginLeft="159dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="164dp"
-            android:layout_marginRight="164dp"
-            android:drawableBottom="@drawable/icon_3_s" />
+            android:layout_marginStart="174dp"
+            android:layout_marginLeft="174dp"
+            android:layout_marginTop="27dp"
+            android:layout_marginEnd="165dp"
+            android:layout_marginRight="165dp"
+            android:background="#00FFFFFF"
+            android:drawableTop="@drawable/icon_3_S" />
 
         <Button
             android:id="@+id/button8"
@@ -86,11 +90,13 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_marginStart="30dp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="18dp"
-            android:background="@android:color/holo_red_dark"
+            android:background="@android:color/holo_red_light"
             android:onClick="onClick"
-            android:text="delete" />
+            android:text="delete"
+            android:textColor="@android:color/background_light"
+            android:textSize="20sp" />
 
         <Switch
             android:id="@+id/switch1"
@@ -99,10 +105,13 @@
             android:layout_below="@+id/button5"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
-            android:layout_marginStart="23dp"
-            android:layout_marginLeft="23dp"
-            android:layout_marginTop="25dp"
-            android:text="Auto-unlock" />
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="26dp"
+            android:text="Auto-unlock"
+            android:textColorHighlight="@android:color/holo_green_dark"
+            android:textColorLink="@android:color/holo_green_dark"
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/button6"
@@ -111,11 +120,12 @@
             android:layout_below="@+id/switch1"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
-            android:layout_marginStart="29dp"
-            android:layout_marginLeft="29dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="19dp"
             android:onClick="onClick"
-            android:text="change pin" />
+            android:text="change pin"
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/button7"
@@ -125,21 +135,22 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_marginStart="29dp"
-            android:layout_marginLeft="29dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="17dp"
             android:onClick="onClick"
-            android:text="change name" />
+            android:text="change name"
+            android:textSize="20sp" />
     </RelativeLayout>
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="157dp"
+        android:layout_height="50dp"
         android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
         android:layout_marginBottom="16dp"
+        android:background="#00FFFFFF"
+        android:foreground="@drawable/back_icon"
         android:onClick="onClick"
-        android:text="back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
