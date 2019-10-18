@@ -152,7 +152,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
         android:background="#00FFFFFF"
-        android:foreground="@drawable/back_icon"
         android:onClick="onClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

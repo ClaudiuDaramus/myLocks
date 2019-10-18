@@ -7,6 +7,7 @@
     tools:context=".SearchLock">
 
     <RelativeLayout
+        android:id="@+id/relativeLayout2"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="@drawable/back_repeat"
@@ -23,7 +24,6 @@
             android:layout_marginStart="20dp"
             android:layout_marginBottom="10dp"
             android:background="#00FFFFFF"
-            android:foreground="@drawable/back_icon"
             android:onClick="onClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -51,6 +51,17 @@
             android:layout_toEndOf="@+id/btnONOFF"
             android:background="#00FFFFFF"
             android:drawableTop="@drawable/search_icon" />
+
+        <ScrollView
+            android:layout_width="405dp"
+            android:layout_height="650dp"
+            android:paddingTop="200dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </ScrollView>
     </RelativeLayout>
 
     <TextView
@@ -64,16 +75,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ScrollView
-        android:layout_width="405dp"
-        android:layout_height="490dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="177dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
