@@ -1,5 +1,3 @@
 <resources>
     <string name="app_name">myLocks</string>
-    <string name="locker_name">locker name</string>
-    <string name="status">too far away</string>
 </resources>

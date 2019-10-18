@@ -14,15 +14,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/btnONOFF"
-            android:layout_width="74dp"
-            android:layout_height="87dp"
-            android:layout_alignParentStart="false"
-            android:layout_marginStart="27dp"
-            android:layout_marginLeft="28dp"
-            android:background="#00FFFFFF"
-            android:drawableBottom="@drawable/bt_icon_s" />
     </RelativeLayout>
 
     <TextView
@@ -35,6 +26,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnONOFF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="60dp"
+        android:drawableBottom="@drawable/bt_icon_s"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
         android:id="@+id/button4"
