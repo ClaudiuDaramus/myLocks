@@ -23,8 +23,10 @@
             android:layout_alignParentBottom="true"
             android:layout_marginStart="20dp"
             android:layout_marginBottom="10dp"
-            android:background="#00FFFFFF"
+            android:background="#80FFFFFF"
             android:onClick="onClick"
+            android:text="Back"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
