@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -28,6 +29,11 @@ public class SearchLock extends AppCompatActivity implements View.OnClickListene
     @Override
     public void onClick(View view) {
         super.onBackPressed();
+    }
 
+    public void addLock(String name, String address) {
+        FoundLockView lock = new FoundLockView(this, name, address);
+        LinearLayout layout = findViewById(R.id.newLocks);
+        layout.addView(lock.getLayout());
     }
 }

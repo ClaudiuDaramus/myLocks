@@ -39,7 +39,6 @@ public class LockSettings extends AppCompatActivity implements View.OnClickListe
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("New PIN");
 
-
             final EditText input = new EditText(this);
 
             input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
@@ -49,8 +48,13 @@ public class LockSettings extends AppCompatActivity implements View.OnClickListe
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     String password = input.getText().toString();
-                    // Some bth thing here
 
+                    SharedPreferences sharedpreferences = getSharedPreferences("AddressToPassword", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    editor.remove(address);
+                    editor.putString(address, password);
+                    editor.commit();
+                    // TODO change pass
                 }
             });
             builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -59,12 +63,12 @@ public class LockSettings extends AppCompatActivity implements View.OnClickListe
                     dialog.cancel();
                 }
             });
+            builder.show();
         }
         else if (label.equals("change name")) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("New name");
 
-
             final EditText input = new EditText(this);
 
             input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
@@ -74,8 +78,18 @@ public class LockSettings extends AppCompatActivity implements View.OnClickListe
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     String password = input.getText().toString();
-                    // Some bth thing here
 
+                    SharedPreferences sharedpreferences = getSharedPreferences("NameToAddress", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    editor.remove(name);
+                    editor.putString(name, address);
+                    editor.commit();
+
+                    sharedpreferences = getSharedPreferences("AddressToName", Context.MODE_PRIVATE);
+                    editor = sharedpreferences.edit();
+                    editor.remove(address);
+                    editor.putString(address, name);
+                    editor.commit();
                 }
             });
             builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -84,6 +98,7 @@ public class LockSettings extends AppCompatActivity implements View.OnClickListe
                     dialog.cancel();
                 }
             });
+            builder.show();
         }
         else if (label.equals("delete")) {
             SharedPreferences sharedpreferences = getSharedPreferences("Locks", Context.MODE_PRIVATE);
