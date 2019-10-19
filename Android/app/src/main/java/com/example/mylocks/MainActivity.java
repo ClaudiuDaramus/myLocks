@@ -71,6 +71,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editor.putBoolean("test", false);
         editor.commit();
 
+        BluetoothManager manager = new BluetoothManager(getApplicationContext());
+
         displaySavedLocks();
     }
 

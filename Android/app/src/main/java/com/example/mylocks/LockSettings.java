@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TextView;
 
 public class LockSettings extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
     String name;
@@ -29,6 +30,9 @@ public class LockSettings extends AppCompatActivity implements View.OnClickListe
 
         Switch autoSwitch = (Switch) findViewById(R.id.switch1);
         autoSwitch.setOnCheckedChangeListener(this);
+
+        TextView title = (TextView) findViewById(R.id.textView2);
+        title.setText(name);
     }
 
     @Override
@@ -55,6 +59,8 @@ public class LockSettings extends AppCompatActivity implements View.OnClickListe
                     editor.putString(address, password);
                     editor.commit();
                     // TODO change pass
+                    BluetoothManager manager = BluetoothManager.getInstance();
+                    manager.resetPIN(password);
                 }
             });
             builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -90,6 +96,9 @@ public class LockSettings extends AppCompatActivity implements View.OnClickListe
                     editor.remove(address);
                     editor.putString(address, name);
                     editor.commit();
+
+                    BluetoothManager manager = BluetoothManager.getInstance();
+                    manager.resetName(password);
                 }
             });
             builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -101,8 +110,18 @@ public class LockSettings extends AppCompatActivity implements View.OnClickListe
             builder.show();
         }
         else if (label.equals("delete")) {
-            SharedPreferences sharedpreferences = getSharedPreferences("Locks", Context.MODE_PRIVATE);
+            SharedPreferences sharedpreferences = getSharedPreferences("NameToAddress", Context.MODE_PRIVATE);
+            String address = sharedpreferences.getString(name, "");
             sharedpreferences.edit().remove(name).commit();
+
+            sharedpreferences = getSharedPreferences("AddressToName", Context.MODE_PRIVATE);
+            sharedpreferences.edit().remove(address).commit();
+
+            sharedpreferences = getSharedPreferences("AddressToPassword", Context.MODE_PRIVATE);
+            sharedpreferences.edit().remove(address).commit();
+
+            sharedpreferences = getSharedPreferences("AddressAutolog", Context.MODE_PRIVATE);
+            sharedpreferences.edit().remove(address).commit();
         }
         else if (label.equals("back")) {
             super.onBackPressed();
@@ -111,8 +130,7 @@ public class LockSettings extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        SharedPreferences sharedpreferences = getSharedPreferences("Autolog", Context.MODE_PRIVATE);
-        sharedpreferences.edit().putBoolean(name, b).commit();
-
+        SharedPreferences sharedpreferences = getSharedPreferences("AddressAutolog", Context.MODE_PRIVATE);
+        sharedpreferences.edit().putBoolean(address, b).commit();
     }
 }

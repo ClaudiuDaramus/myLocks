@@ -49,6 +49,14 @@ public class BluetoothService extends IntentService {
         // Do work here, based on the contents of dataString
         // Sau doar codul pentru cautare continua si conectare
         bluetooth = new Bluetooth(getApplicationContext());
+        bluetooth.onStart();
+        if(bluetooth.isEnabled()){
+            BluetoothCallback bluetoothCallback = null;
+            bluetoothCallback.onBluetoothOn();
+        } else {
+            bluetooth.enable();
+        }
+
         bluetooth.setDiscoveryCallback(new DiscoveryCallback() {
             @Override public void onDiscoveryStarted() {}
             @Override public void onDiscoveryFinished() {}

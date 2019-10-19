@@ -2,18 +2,16 @@ package com.example.mylocks;
 
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-
-import androidx.annotation.Nullable;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
 import me.aflak.bluetooth.Bluetooth;
 import me.aflak.bluetooth.interfaces.BluetoothCallback;
+import me.aflak.bluetooth.interfaces.DeviceCallback;
 import me.aflak.bluetooth.interfaces.DiscoveryCallback;
 
 public class BluetoothManager {
@@ -29,26 +27,69 @@ public class BluetoothManager {
         return ourInstance;
     }
 
-    private BluetoothManager(Context context) {
+    public BluetoothManager(Context context) {
         nowContext = context;
 
         bluetooth = new Bluetooth(context);
 
         bluetooth = new Bluetooth(context);
-        bluetooth.setBluetoothCallback(bluetoothCallback);
+        bluetooth.setBluetoothCallback(new BluetoothCallback() {
+            @Override public void onBluetoothTurningOn() {}
+            @Override public void onBluetoothTurningOff() {}
+            @Override public void onBluetoothOff() {}
+            @Override public void onUserDeniedActivation() {}
+            @Override public void onBluetoothOn() {}
+        });
+
+        bluetooth.setDeviceCallback(new DeviceCallback() {
+            @Override public void onDeviceConnected(BluetoothDevice device) {}
+            @Override public void onDeviceDisconnected(BluetoothDevice device, String message) {}
+            @Override public void onMessage(byte[] message) {}
+            @Override public void onError(int err) {
+                Toast.makeText(nowContext, "Some device connection error occured", Toast.LENGTH_SHORT).show();
+            }
+            @Override public void onConnectError(BluetoothDevice device, String message) {
+
+            }
+        });
+
+        bluetooth.setDiscoveryCallback(new DiscoveryCallback() {
+            @Override public void onDiscoveryStarted() {}
+            @Override public void onDiscoveryFinished() {}
+            @Override public void onDeviceFound(BluetoothDevice device) {}
+            @Override public void onDevicePaired(BluetoothDevice device) {}
+            @Override public void onDeviceUnpaired(BluetoothDevice device) {}
+            @Override public void onError(int err) {
+                Toast.makeText(nowContext, "Can't find device", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         onStart();
     }
 
-    public void connectToAdress(String address) {
+    public void scan() {
+        bluetooth.startScanning();
+    }
+
+    public void connectToAddress(String address, String password) {
+        int ok = 0;
         List<BluetoothDevice> paired = bluetooth.getPairedDevices();
 
         for(BluetoothDevice device : paired){
             if(device.getAddress().equals(address)) {
-                bluetooth.pair(device);
-            } else {
-                Log.d(TAG, "Lock not found with address.");
+                if (password.equals("")){
+                    bluetooth.pair(device);
+                }
+                else {
+                    bluetooth.pair(device, password);
+                }
+                ok = 1;
+                break;
             }
+        }
+
+        if(ok == 0) {
+            Toast.makeText(nowContext, "Error finding paired device", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -65,14 +106,6 @@ public class BluetoothManager {
     protected void onStop() {
         bluetooth.onStop();
     }
-
-    private BluetoothCallback bluetoothCallback = new BluetoothCallback() {
-        @Override public void onBluetoothTurningOn() {}
-        @Override public void onBluetoothTurningOff() {}
-        @Override public void onBluetoothOff() {}
-        @Override public void onUserDeniedActivation() {}
-        @Override public void onBluetoothOn() {}
-    };
 
     // Reset PIN
     void resetPIN(String PIN) {

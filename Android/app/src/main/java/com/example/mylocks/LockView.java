@@ -25,7 +25,6 @@ public class LockView implements  LockViewUpdate, View.OnClickListener {
     TextView title;
     ImageView icon;
     Button settings;
-    Button lockunlock;
 
     Context context;
 
@@ -58,17 +57,12 @@ public class LockView implements  LockViewUpdate, View.OnClickListener {
         icon = new ImageView(context);
         settings = new Button(context);
         settings.setText("Open settings");
-        settings.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
+        settings.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
         settings.setGravity(Gravity.CENTER);
         settings.setOnClickListener(this);
-        lockunlock = new Button(context);
-        lockunlock.setGravity(Gravity.CENTER);
-        lockunlock.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
-        lockunlock.setOnClickListener(this);
 
         horizontalLayout.addView(icon);
         horizontalLayout.addView(settings);
-        horizontalLayout.addView(lockunlock);
 
         onStateChanged(state);
         verticalLayout.addView(title);
@@ -83,38 +77,30 @@ public class LockView implements  LockViewUpdate, View.OnClickListener {
     @Override
     public void onStateChanged(int state) {
         int resId = R.drawable.bkg_gray;
-        String text = "Lock/unlock";
 
         if (state == STATE_LOCKED) {
             resId = R.drawable.bkg_red;
-            text = "Unlock";
         }
         else if (state == STATE_UNLOCKED) {
             resId = R.drawable.bkg_green;
-            text = "Lock";
         }
         else if (state == STATE_UNAVAILABLE) {}
 
         icon.setBackgroundResource(resId);
-        lockunlock.setText(text);
     }
 
     @Override
     public void onClick(View view) {
         Button button = (Button) view;
-        if (button.getText().toString().equals("Open settings")) {
-            // Start new activity
-            Activity activity = (Activity) context;
-            Intent intent = new Intent(activity, LockSettings.class);
-            Bundle bundle = new Bundle();
-            bundle.putString("name", this.title.getText().toString());
-            bundle.putString("address", this.address);
-            intent.putExtras(bundle);
-            context.startActivity(intent);
-        }
-        else {
-            // Some bth
-        }
+        // Start new activity
+        Activity activity = (Activity) context;
+        Intent intent = new Intent(activity, LockSettings.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("name", this.title.getText().toString());
+        bundle.putString("address", this.address);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
+
     }
 
     public String getName() {

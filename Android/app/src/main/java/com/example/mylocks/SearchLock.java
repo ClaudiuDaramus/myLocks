@@ -9,6 +9,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,6 +25,11 @@ public class SearchLock extends AppCompatActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_searchlock);
+        String address = savedInstanceState.getString("address");
+        BluetoothManager manager = BluetoothManager.getInstance();
+        SharedPreferences sharedPreferences = getSharedPreferences("AddressToPassword", Context.MODE_PRIVATE);
+        String password = sharedPreferences.getString(address, "");
+        manager.connectToAddress(address, password);
     }
 
     @Override
