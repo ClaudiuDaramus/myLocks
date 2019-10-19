@@ -1,5 +1,6 @@
 package com.example.mylocks;
 
+import android.app.Application;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.util.Log;
@@ -65,6 +66,25 @@ public class BluetoothManager {
         });
 
         onStart();
+    }
+
+    Context newLocks;
+    public void fillLocks(final SearchLock activity) {
+        BluetoothManager.getInstance().scan();
+        bluetooth.setDiscoveryCallback(new DiscoveryCallback() {
+            @Override public void onDiscoveryStarted() {}
+            @Override public void onDiscoveryFinished() {}
+            @Override public void onDeviceFound(BluetoothDevice device) {
+                if (activity.isFinishing())
+                    return;
+                activity.addLock(device.getName(), device.getAddress());
+            }
+            @Override public void onDevicePaired(BluetoothDevice device) {}
+            @Override public void onDeviceUnpaired(BluetoothDevice device) {}
+            @Override public void onError(int err) {
+                Toast.makeText(nowContext, "Can't find device", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void scan() {

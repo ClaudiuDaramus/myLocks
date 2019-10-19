@@ -17,6 +17,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     // Lista sa nu moara lockviewurile create
+    BluetoothManager manager;
     List<LockView> lockLayouts = new ArrayList<LockView>();
     private static final String TAG = "MainActivity";
 
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editor.putBoolean("test", false);
         editor.commit();
 
-        BluetoothManager manager = new BluetoothManager(getApplicationContext());
+        manager = new BluetoothManager(getApplicationContext());
 
         displaySavedLocks();
     }

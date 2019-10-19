@@ -24,12 +24,7 @@ public class SearchLock extends AppCompatActivity implements View.OnClickListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_searchlock);
-        String address = savedInstanceState.getString("address");
-        BluetoothManager manager = BluetoothManager.getInstance();
-        SharedPreferences sharedPreferences = getSharedPreferences("AddressToPassword", Context.MODE_PRIVATE);
-        String password = sharedPreferences.getString(address, "");
-        manager.connectToAddress(address, password);
+        BluetoothManager.getInstance().fillLocks(this);
     }
 
     @Override
