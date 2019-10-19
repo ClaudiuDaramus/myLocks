@@ -14,6 +14,10 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class LockSettings extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
     String name;
@@ -60,14 +64,18 @@ public class LockSettings extends AppCompatActivity implements View.OnClickListe
                 public void onClick(DialogInterface dialog, int which) {
                     String password = input.getText().toString();
 
-                    SharedPreferences sharedpreferences = getSharedPreferences("AddressToPassword", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedpreferences.edit();
-                    editor.remove(address);
-                    editor.putString(address, password);
-                    editor.commit();
-                    // TODO change pass
-                    BluetoothManager manager = BluetoothManager.getInstance();
-                    manager.resetPIN(password);
+                    if(isValid(password, "^d{4}$")) {
+                        SharedPreferences sharedpreferences = getSharedPreferences("AddressToPassword", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedpreferences.edit();
+                        editor.remove(address);
+                        editor.putString(address, password);
+                        editor.commit();
+                        // TODO change pass
+                        BluetoothManager manager = BluetoothManager.getInstance();
+                        manager.resetPIN(password);
+                    } else {
+                        Toast.makeText(getApplicationContext() , "Wrong Input", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
             builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -92,20 +100,26 @@ public class LockSettings extends AppCompatActivity implements View.OnClickListe
                 public void onClick(DialogInterface dialog, int which) {
                     String password = input.getText().toString();
 
-                    SharedPreferences sharedpreferences = getSharedPreferences("NameToAddress", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedpreferences.edit();
-                    editor.remove(name);
-                    editor.putString(name, address);
-                    editor.commit();
+                    if(isValid(password, "^.{1,20}$")) {
+                        SharedPreferences sharedpreferences = getSharedPreferences("NameToAddress", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedpreferences.edit();
+                        editor.remove(name);
+                        editor.putString(name, address);
+                        editor.commit();
 
-                    sharedpreferences = getSharedPreferences("AddressToName", Context.MODE_PRIVATE);
-                    editor = sharedpreferences.edit();
-                    editor.remove(address);
-                    editor.putString(address, name);
-                    editor.commit();
+                        sharedpreferences = getSharedPreferences("AddressToName", Context.MODE_PRIVATE);
+                        editor = sharedpreferences.edit();
+                        editor.remove(address);
+                        editor.putString(address, name);
+                        editor.commit();
 
-                    BluetoothManager manager = BluetoothManager.getInstance();
-                    manager.resetName(password);
+                        BluetoothManager manager = BluetoothManager.getInstance();
+                        manager.resetName(password);
+                    } else {
+                        Toast.makeText(getApplicationContext() , "Wrong Input", Toast.LENGTH_SHORT).show();
+                    }
+
+
                 }
             });
             builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -133,6 +147,15 @@ public class LockSettings extends AppCompatActivity implements View.OnClickListe
         else if (label.equals("back")) {
             super.onBackPressed();
         }
+    }
+
+    public static boolean isValid(final String text, final String text_pattern) {
+        Pattern pattern;
+        Matcher matcher;
+        pattern = Pattern.compile(text_pattern);
+        matcher = pattern.matcher(text);
+
+        return matcher.matches();
     }
 
     @Override
