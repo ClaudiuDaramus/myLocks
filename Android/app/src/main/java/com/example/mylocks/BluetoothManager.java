@@ -18,7 +18,7 @@ import me.aflak.bluetooth.interfaces.DiscoveryCallback;
 public class BluetoothManager {
     private static final String TAG = "BluetoothManager";
 
-    private static final BluetoothManager ourInstance = null;
+    private static BluetoothManager ourInstance = null;
 
     Bluetooth bluetooth;
 
@@ -29,6 +29,7 @@ public class BluetoothManager {
     }
 
     public BluetoothManager(Context context) {
+        ourInstance = this;
         nowContext = context;
 
         bluetooth = new Bluetooth(context);
