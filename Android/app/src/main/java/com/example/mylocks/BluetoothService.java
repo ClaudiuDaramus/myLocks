@@ -26,11 +26,11 @@ public class BluetoothService extends IntentService {
 
     // Intoarce parola numai in cazul in care e autolock, altfel null
     String getPassword(String address) {
-        SharedPreferences sharedpreferencesautlocks = getSharedPreferences("AddressAutolog", Context.MODE_PRIVATE);
-        boolean isAutolock = sharedpreferencesautlocks.getBoolean(address, false);
+        SharedPreferences sharedPreferencesAutLocks = getSharedPreferences("AddressAutolog", Context.MODE_PRIVATE);
+        boolean isAutolock = sharedPreferencesAutLocks.getBoolean(address, false);
         if (isAutolock) {
-            SharedPreferences sharedpreferenceslocks = getSharedPreferences("AddressToPassword", Context.MODE_PRIVATE);
-            String password = sharedpreferenceslocks.getString(address, null);
+            SharedPreferences sharedPreferencesLocks = getSharedPreferences("AddressToPassword", Context.MODE_PRIVATE);
+            String password = sharedPreferencesLocks.getString(address, null);
             return password;
         }
         return null;
@@ -67,7 +67,8 @@ public class BluetoothService extends IntentService {
                 }
             }
             @Override public void onDevicePaired(BluetoothDevice device) {
-                if (waitToUnlock) sendUnlock(device);
+                if (waitToUnlock)
+                    sendUnlock(device);
                 waitToUnlock = false;
             }
             @Override public void onDeviceUnpaired(BluetoothDevice device) {}
