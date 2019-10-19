@@ -137,12 +137,12 @@ public class SearchLock extends AppCompatActivity implements View.OnClickListene
 
     @Override
     protected void onDestroy() {
-        Log.d(TAG, "onDestroy: called.");
+//        Log.d(TAG, "onDestroy: called.");
         super.onDestroy();
-        unregisterReceiver(mBroadcastReceiver1);
-        unregisterReceiver(mBroadcastReceiver2);
-        unregisterReceiver(mBroadcastReceiver3);
-        unregisterReceiver(mBroadcastReceiver4);
+//        unregisterReceiver(mBroadcastReceiver1);
+//        unregisterReceiver(mBroadcastReceiver2);
+//        unregisterReceiver(mBroadcastReceiver3);
+//        unregisterReceiver(mBroadcastReceiver4);
         //mBluetoothAdapter.cancelDiscovery();
     }
 
@@ -252,21 +252,22 @@ public class SearchLock extends AppCompatActivity implements View.OnClickListene
     public void onClick(View view) {
         super.onBackPressed();
 
+        //ESTE PENTRU FIECARE BUTON DIN ACTIVITATE ASTA
         //first cancel discovery because its very memory intensive.
-        mBluetoothAdapter.cancelDiscovery();
-
-        Log.d(TAG, "onItemClick: You Clicked on a device.");
-        String deviceName = mBTDevices.get(1).getName();
-        String deviceAddress = mBTDevices.get(1).getAddress();
-
-        Log.d(TAG, "onItemClick: deviceName = " + deviceName);
-        Log.d(TAG, "onItemClick: deviceAddress = " + deviceAddress);
-
-        //create the bond.
-        //NOTE: Requires API 17+? I think this is JellyBean
-        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2){
-            Log.d(TAG, "Trying to pair with " + deviceName);
-            mBTDevices.get(1).createBond();
-        }
+//        mBluetoothAdapter.cancelDiscovery();
+//
+//        Log.d(TAG, "onItemClick: You Clicked on a device.");
+//        String deviceName = mBTDevices.get(1).getName();
+//        String deviceAddress = mBTDevices.get(1).getAddress();
+//
+//        Log.d(TAG, "onItemClick: deviceName = " + deviceName);
+//        Log.d(TAG, "onItemClick: deviceAddress = " + deviceAddress);
+//
+//        //create the bond.
+//        //NOTE: Requires API 17+? I think this is JellyBean
+//        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2){
+//            Log.d(TAG, "Trying to pair with " + deviceName);
+//            mBTDevices.get(1).createBond();
+//        }
     }
 }

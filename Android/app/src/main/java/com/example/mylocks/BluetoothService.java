@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 
 import androidx.annotation.Nullable;
 
+import java.util.List;
 import java.util.Map;
 
 import me.aflak.bluetooth.Bluetooth;
@@ -19,19 +20,25 @@ public class BluetoothService extends IntentService {
     public BluetoothService(String name) {
         super(name);
     }
+    boolean waitToUnlock = false;
 
     Bluetooth bluetooth;
 
     // Intoarce parola numai in cazul in care e autolock, altfel null
-    String getPassword(String name) {
-        SharedPreferences sharedpreferencesautlocks = getSharedPreferences("Autolog", Context.MODE_PRIVATE);
-        boolean isAutolock = sharedpreferencesautlocks.getBoolean(name, false);
+    String getPassword(String address) {
+        SharedPreferences sharedpreferencesautlocks = getSharedPreferences("AddressAutolog", Context.MODE_PRIVATE);
+        boolean isAutolock = sharedpreferencesautlocks.getBoolean(address, false);
         if (isAutolock) {
-            SharedPreferences sharedpreferenceslocks = getSharedPreferences("Locks", Context.MODE_PRIVATE);
-            String password = sharedpreferenceslocks.getString(name, null);
+            SharedPreferences sharedpreferenceslocks = getSharedPreferences("AddressToPassword", Context.MODE_PRIVATE);
+            String password = sharedpreferenceslocks.getString(address, null);
             return password;
         }
         return null;
+    }
+
+    // Send unlock
+    void sendUnlock(BluetoothDevice device) {
+        bluetooth.send(new byte[]{2});
     }
 
     // This is called on autolaunch
@@ -46,12 +53,26 @@ public class BluetoothService extends IntentService {
             @Override public void onDiscoveryStarted() {}
             @Override public void onDiscoveryFinished() {}
             @Override public void onDeviceFound(BluetoothDevice device) {
-                String name = device.getName();
                 String address = device.getAddress();
+                String password = getPassword(address);
+
+                if(password != null) {
+                    List<BluetoothDevice> paired = bluetooth.getPairedDevices();
+                    if (paired.contains(device)) {
+                        bluetooth.pair(device);
+                    } else {
+                        bluetooth.pair(device, password);
+                    }
+                    waitToUnlock = true;
+                }
             }
-            @Override public void onDevicePaired(BluetoothDevice device) {}
+            @Override public void onDevicePaired(BluetoothDevice device) {
+                if (waitToUnlock) sendUnlock(device);
+                waitToUnlock = false;
+            }
             @Override public void onDeviceUnpaired(BluetoothDevice device) {}
             @Override public void onError(int errorCode) {}
         });
+        bluetooth.startScanning();
     }
 }

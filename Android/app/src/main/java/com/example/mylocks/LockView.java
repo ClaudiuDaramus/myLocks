@@ -29,8 +29,11 @@ public class LockView implements  LockViewUpdate, View.OnClickListener {
 
     Context context;
 
-    public LockView(Context context, String name, int state) {
+    String address = "";
+
+    public LockView(Context context, String name, String address, int state) {
         this.context = context;
+        this.address = address;
 
         float dpi = context.getResources().getDisplayMetrics().density;
         float width = context.getResources().getDisplayMetrics().widthPixels;
@@ -105,9 +108,9 @@ public class LockView implements  LockViewUpdate, View.OnClickListener {
             Intent intent = new Intent(activity, LockSettings.class);
             Bundle bundle = new Bundle();
             bundle.putString("name", this.title.getText().toString());
+            bundle.putString("address", this.address);
             intent.putExtras(bundle);
             context.startActivity(intent);
-
         }
         else {
             // Some bth

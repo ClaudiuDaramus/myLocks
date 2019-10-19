@@ -16,6 +16,7 @@ import android.widget.Switch;
 
 public class LockSettings extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
     String name;
+    String address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,7 @@ public class LockSettings extends AppCompatActivity implements View.OnClickListe
 
         Bundle bundle = this.getIntent().getExtras();
         name = bundle.getString("name");
+        address = bundle.getString("address");
 
         Switch autoSwitch = (Switch) findViewById(R.id.switch1);
         autoSwitch.setOnCheckedChangeListener(this);

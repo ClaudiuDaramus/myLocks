@@ -21,14 +21,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final String TAG = "MainActivity";
 
     public void displaySavedLocks() {
-        SharedPreferences sharedpreferences = getSharedPreferences("Locks", Context.MODE_PRIVATE);
+        SharedPreferences sharedpreferences = getSharedPreferences("NameToAddress", Context.MODE_PRIVATE);
         Map<String, ?> stored = sharedpreferences.getAll();
 
         LinearLayout layout = this.findViewById(R.id.lockslayout);
         for (Map.Entry<String, ?> entry : stored.entrySet()) {
             String name = entry.getKey();
-            String password = (String) entry.getValue();
-            LockView lock = new LockView(this, name, LockView.STATE_UNAVAILABLE);
+            String address = entry.getValue().toString();
+            LockView lock = new LockView(this, name, address, LockView.STATE_UNAVAILABLE);
             layout.addView(lock.getLayout());
             lockLayouts.add(lock);
         }
@@ -51,9 +51,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // Test
-        SharedPreferences sharedpreferences = getSharedPreferences("Locks", Context.MODE_PRIVATE);
+        SharedPreferences sharedpreferences = getSharedPreferences("AddressToPassword", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putString("test", "test");
+        editor.putString("test", "parolatest");
+        editor.commit();
+
+        sharedpreferences = getSharedPreferences("AddressToName", Context.MODE_PRIVATE);
+        editor = sharedpreferences.edit();
+        editor.putString("adresatest", "test");
+        editor.commit();
+
+        sharedpreferences = getSharedPreferences("NameToAddress", Context.MODE_PRIVATE);
+        editor = sharedpreferences.edit();
+        editor.putString("test", "adresatest");
+        editor.commit();
+
+        sharedpreferences = getSharedPreferences("AddressAutolog", Context.MODE_PRIVATE);
+        editor = sharedpreferences.edit();
+        editor.putBoolean("test", false);
         editor.commit();
 
         displaySavedLocks();
