@@ -20,8 +20,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     List<LockView> lockLayouts = new ArrayList<LockView>();
     private static final String TAG = "MainActivity";
 
-    BluetoothAdapter mBluetoothAdapter;
-
     public void displaySavedLocks() {
         SharedPreferences sharedpreferences = getSharedPreferences("Locks", Context.MODE_PRIVATE);
         Map<String, ?> stored = sharedpreferences.getAll();
@@ -59,8 +57,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editor.commit();
 
         displaySavedLocks();
-        Button btnONOFF = (Button) findViewById(R.id.btnONOFF);
-        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     }
 
     // Onclick pt butonul de adaugare
