@@ -8,11 +8,7 @@ The app uses Bluetooth technology to pair the phone with multiple locks, allowin
 
 - Java on the Android app;
 
-- C++ for Arduino;
-
-- mySQL Database;
-
-- HTML/CSS/JS & Spring Boot/Java on the Web app.
+- C++ for Arduino.
 
 # How the application will be designed to work
 
